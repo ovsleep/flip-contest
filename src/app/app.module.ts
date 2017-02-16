@@ -6,6 +6,9 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { UploaderComponent } from './uploader/uploader.component';
 
+import { FlipperService } from './flipper.service'
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +19,7 @@ import { UploaderComponent } from './uploader/uploader.component';
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [FlipperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

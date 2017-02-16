@@ -1,1 +1,16 @@
+<div *ngIf="originalSrc">
+  <div class="img-container">
+      <img [src]="originalSrc"/> <img [src]="flippedSrc"/>
+  </div>
+
+  <div class="download-container">
+    <select [(ngModel)]="downExt">
+      <option value="jpg">.jpg</option>
+      <option value="png">.png</option>
+      <option value="gif">.gif</option>
+    </select>
+    <input type="submit" value="Download" (click)="download()">
+  </div>
+</div>
+
 <input type="file" (change)="change($event)" placeholder="Upload image" accept=".jpg"><input type="submit" value="Upload" (click)="upload()">

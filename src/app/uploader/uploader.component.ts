@@ -1,20 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http'
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/throw';
+import { FlipperService } from '../flipper.service'
+import * as FileSaver from "file-saver";
 
 @Component({
   selector: 'app-uploader',
   templateUrl: './uploader.component.html',
   styleUrls: ['./uploader.component.css']
 })
-export class UploaderComponent implements OnInit {
-  apiEndPoint:string = 'http://localhost:3000/api/pictures/upload';
-  file: File;
 
-  constructor(private http:Http) { }
+export class UploaderComponent implements OnInit {
+  apiImgSrc:string = 'http://localhost:3000/pics/'
+  file: File;
+  originalName: string;
+  flippedName: string;
+  originalSrc: string;
+  flippedSrc: string;
+  downExt: string = 'jpg';
+
+  constructor(private flipperService:FlipperService) { }
 
   change(event) {
       let fileList: FileList = event.target.files;
@@ -24,20 +27,29 @@ export class UploaderComponent implements OnInit {
   }
 
   upload(){
-    let formData:FormData = new FormData();
-    formData.append('pic', this.file, this.file.name);
-    // let headers = new Headers();
-    // headers.append('Content-Type', 'multipart/form-data');
-    // headers.append('Accept', 'application/json');
-    // let options = new RequestOptions({ headers: headers });
-    this.http.post(`${this.apiEndPoint}`, formData)
-        .map(res => res.json())
-        .catch(error => Observable.throw(error))
-        .subscribe(
-            data => console.log('success'),
-            error => console.log(error)
-        )
+    this.flipperService.upload(this.file).then(
+      (data) => {
+        this.originalName = data.originalName;
+        this.flippedName = data.flippedName;
+        this.originalSrc = this.apiImgSrc + data.originalName;
+        this.flippedSrc = this.apiImgSrc + data.flippedName;
+    })
   }
+
+  // download(){
+  //   this.flipperService.download(this.flippedName, 'jpg').subscribe(
+  //     (res) => {
+  //       FileSaver.saveAs(res, 'test.jpg');
+  //   });
+  // }
+
+  download(){
+    this.flipperService.download(this.flippedName, this.downExt).then(
+      (data) => {
+        FileSaver.saveAs(data, `${this.file.name.substring(0, this.file.name.indexOf('.'))}.${this.downExt}`);
+    });
+  }
+
   ngOnInit() {
   }
 
