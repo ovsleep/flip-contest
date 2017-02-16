@@ -4,6 +4,11 @@ const multer = require('multer');
 const crypto = require('crypto');
 const mime = require('mime');
 const path = require('path');
+const fs = require('fs');
+
+//import C# library to convert to jpg
+var edge = require('edge');
+var convertJpg = edge.func(`${__dirname}/../../lib/ImgConverter.dll`)
 
 var Jimp = require("jimp");
 
@@ -49,26 +54,34 @@ router.post('/pictures/upload', uploading.single('pic'), (req, res) => {
 router.get('/pictures/:name/:ext', (req, res) => {
   var picName = req.params.name;
   var ext = req.params.ext;
-  var mime = Jimp.MIME_JPEG;
-  switch (ext) {
-    case 'jpg':
-      mime = Jimp.MIME_JPEG;
-      break;
-    case 'png':
-      mime = Jimp.MIME_PNG;
-      break;
-    case 'bmp':
-        mime = Jimp.MIME_BMP;
-        break;
-    default:
 
+  //if the user requires a JPG, its done using the C# library
+  if(ext == 'jpg'){
+    convertJpg(`${__dirname}/../uploads/${picName}`, function(error, result){
+      if(error) throw error;
+      var filestream = fs.createReadStream(result);
+      filestream.pipe(res);
+    });
   }
-  Jimp.read(`${__dirname}/../uploads/${picName}`)
-  .then((pic) => {
-    pic.getBuffer(mime, (err, data) => {
-      res.send(data);
-    })
-  })
-
-})
+  else{ //otherwise we use Jimp module
+    var mime = Jimp.MIME_JPEG;
+    switch (ext) {
+      case 'jpg':
+        mime = Jimp.MIME_JPEG;
+        break;
+      case 'png':
+        mime = Jimp.MIME_PNG;
+        break;
+      case 'bmp':
+          mime = Jimp.MIME_BMP;
+          break;
+    }
+    Jimp.read(`${__dirname}/../uploads/${picName}`)
+    .then((pic) => {
+      pic.getBuffer(mime, (err, data) => {
+        res.send(data);
+      });
+    });
+  }
+});
 module.exports = router;
