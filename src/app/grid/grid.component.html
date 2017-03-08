@@ -1,0 +1,15 @@
+<h1>Orders</h1>
+<table class="table table-stripped">
+  <tr>
+    <th>Order Id</th>
+    <th>Customer Id</th>
+    <th>Date</th>
+    <th>Expected Delivery Date</th>
+  </tr>
+  <tr *ngFor="let order of orders"  [routerLink]="['/detail', order.OrderId]">
+    <td>{{order.OrderId}}</td>
+    <td>{{order.CustomerId}}</td>
+    <td>{{order.Date | date}}</td>
+    <td>{{order.ExpectedDeliveryDate | date}}</td>
+  </tr>
+</table>

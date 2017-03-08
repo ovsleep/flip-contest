@@ -31,7 +31,7 @@ var uploading = multer({
 });
 
 //upload and flip pictures
-router.post('/pictures/upload', uploading.single('pic'), (req, res) => {
+router.post('/upload', uploading.single('pic'), (req, res) => {
   var fileNameWithoutExt = req.file.filename.replace(path.extname(req.file.filename), "");
   var filePath = path.dirname(req.file.path);
 
@@ -51,7 +51,7 @@ router.post('/pictures/upload', uploading.single('pic'), (req, res) => {
 });
 
 //download pictures
-router.get('/pictures/:name/:ext', (req, res) => {
+router.get('/:name/:ext', (req, res) => {
   var picName = req.params.name;
   var ext = req.params.ext;
 
@@ -81,7 +81,11 @@ router.get('/pictures/:name/:ext', (req, res) => {
       pic.getBuffer(mime, (err, data) => {
         res.send(data);
       });
-    });
+    })
+    .catch(function (err) {
+      console.error(err);
+    });;
   }
 });
+
 module.exports = router;

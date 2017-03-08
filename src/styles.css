@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400');
+body{
+	background-color: #3FC7C3;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6, .btn {
+  font-weight: 300;
+	text-align: center;
+}
+
+.container{
+    background-color: #FFF;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 15px;
+    min-height: 300px;
+    /*text-align: center;*/
+    overflow: auto;
+}
+
+.container h1{
+	text-align: center;
+	padding: 5px 0;
+}

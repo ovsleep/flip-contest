@@ -5,21 +5,53 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { UploaderComponent } from './uploader/uploader.component';
+import { RouterModule }   from '@angular/router';
 
-import { FlipperService } from './flipper.service'
+//extrernal
+import { ChartModule } from 'angular2-chartjs';
+
+import { FlipperService } from './flipper.service';
+import { DbService } from './db.service';
+import { GridComponent } from './grid/grid.component';
+import { GridDetailComponent } from './grid-detail/grid-detail.component'
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    UploaderComponent
+    UploaderComponent,
+    GridComponent,
+    GridDetailComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    ChartModule,
+    RouterModule.forRoot([
+      {
+        path: '',
+        redirectTo: '/flipper',
+        pathMatch: 'full'
+      },
+     {
+       path: 'flipper',
+       component: UploaderComponent
+     },
+     {
+       path: 'grid',
+       component: GridComponent
+     },
+     {
+       path: 'detail/:id',
+       component: GridDetailComponent
+     },
+   ])
   ],
-  providers: [FlipperService],
+  providers: [
+    FlipperService,
+    DbService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

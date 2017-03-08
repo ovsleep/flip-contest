@@ -1,0 +1,10 @@
+nav{
+  padding: 10px 0;
+
+  text-align: center;
+  border-bottom: 1px solid #AAA;
+}
+
+nav a{
+  margin-right: 20px;
+}

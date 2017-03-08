@@ -1,16 +1,37 @@
-<div *ngIf="originalSrc">
-  <div class="img-container">
-      <img [src]="originalSrc"/> <img [src]="flippedSrc"/>
-  </div>
+<div class="uploader">
+  <h1>
+    Flipper
+  </h1>
+  <p>Choose an image to flip!</p>
 
-  <div class="download-container">
-    <select [(ngModel)]="downExt">
-      <option value="jpg">.jpg</option>
-      <option value="png">.png</option>
-      <option value="gif">.gif</option>
-    </select>
-    <input type="submit" value="Download" (click)="download()">
+  <div *ngIf="originalSrc">
+    <div class="row">
+      <div class="col-6">
+        <h3>Original</h3>
+        <img [src]="originalSrc" class="img-thumbnail img-fluid"/>
+      </div>
+      <div class="col-6">
+        <h3>Flipped</h3>
+        <img [src]="flippedSrc" class="img-thumbnail img-fluid"/>
+      </div>
+    </div>
+
+    <div class="download">
+      <div class="form-inline">
+        <label>Choose a format to download: </label>
+        <select [(ngModel)]="downExt" class="form-control">
+          <option value="jpg">.jpg</option>
+          <option value="png">.png</option>
+          <option value="gif">.gif</option>
+        </select>
+        <input type="submit" value="Download" (click)="download()" class="btn btn-success">
+      </div>
+    </div>
+
   </div>
+<div class="controls">
+  <input type="file" (change)="change($event)" placeholder="Upload image" accept="image/*" >
+  <input type="submit" value="Upload" (click)="upload()" class="btn btn-info">
 </div>
 
-<input type="file" (change)="change($event)" placeholder="Upload image" accept=".jpg"><input type="submit" value="Upload" (click)="upload()">
+</div>

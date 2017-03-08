@@ -1,0 +1,24 @@
+.controls{
+  margin: 100px 0;
+}
+
+.uploader{
+  margin-bottom: 100px;
+  text-align: center;
+}
+
+.form-inline{
+  margin-top: 15px;
+  text-align: center;
+}
+
+.form-inline label,
+.form-inline input,
+.form-inline select{
+  margin-left: 10px;
+}
+
+.download{
+  display: inline-block;
+  text-align: center;
+}

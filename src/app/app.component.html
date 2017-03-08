@@ -1,6 +1,10 @@
-<h1>
-  {{title}}
-</h1>
-<div class="">
-  <app-uploader></app-uploader>
+
+<div class="container rounded">
+  <nav>
+    <a routerLink="/flipper">Flipper</a>
+    <a routerLink="/grid">Grid</a>
+  </nav>
+
+  <router-outlet></router-outlet>
+  <div class="clear"></div>
 </div>

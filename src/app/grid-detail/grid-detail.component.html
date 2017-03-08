@@ -1,0 +1,22 @@
+<h3>Order Id: {{orderId}}</h3>
+<h4>Order lines:</h4>
+<table class="table">
+  <tr>
+    <th>Stock Item Id</th>
+    <th>Quantity</th>
+    <th>Description</th>
+  </tr>
+  <tr *ngFor="let detail of orderDetails">
+    <td>{{detail.StockItemId}}</td>
+    <td>{{detail.Quantity}}</td>
+    <td>{{detail.Description}}</td>
+  </tr>
+</table>
+
+<div style="display: block" *ngIf="orderDetails">
+  <chart [type]="type" [data]="data" [options]="options"></chart>
+</div>
+
+<div class="footer">
+  <a class="btn btn-info" routerLink="/grid">Go Back</a>  
+</div>
