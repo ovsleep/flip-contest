@@ -1,12 +1,12 @@
 <h1>Orders</h1>
-<table class="table table-stripped">
+<table class="table table-striped">
   <tr>
     <th>Order Id</th>
     <th>Customer Id</th>
     <th>Date</th>
     <th>Expected Delivery Date</th>
   </tr>
-  <tr *ngFor="let order of orders"  [routerLink]="['/detail', order.OrderId]">
+  <tr *ngFor="let order of orders"  [routerLink]="['/detail', order.OrderId]" class="clickable">
     <td>{{order.OrderId}}</td>
     <td>{{order.CustomerId}}</td>
     <td>{{order.Date | date}}</td>

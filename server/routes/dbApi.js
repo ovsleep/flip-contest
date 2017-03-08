@@ -18,7 +18,6 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  console.log(req.params.id);
   var params = {
     conn: process.env.CONN_STRING,
     orderId: req.params.id * 1 //convert to number

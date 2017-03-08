@@ -35,7 +35,6 @@ app.use('/api/db', dbApi);
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
-  console.log('test');
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
